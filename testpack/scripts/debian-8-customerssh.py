@@ -8,7 +8,7 @@ import time
 class Test1and1Image(Test1and1Common):
     def file_mode_test(self, filename: str, mode: str):
         # Compare (eg) drwx???rw- to drwxr-xrw-
-        result = self.execRun("ls -ld %s" % filename)
+        result = self.exec("ls -ld %s" % filename)
         self.assertFalse(
             result.find("No such file or directory") > -1,
             msg="%s is missing" % filename
@@ -20,7 +20,7 @@ class Test1and1Image(Test1and1Common):
             )
 
     def file_content_test(self, filename: str, content: list):
-        result = self.execRun("cat %s" % filename)
+        result = self.exec("cat %s" % filename)
         self.assertFalse(
             result.find("No such file or directory") > -1,
             msg="%s is missing" % filename
@@ -56,8 +56,8 @@ class Test1and1Image(Test1and1Common):
     def test_vim_installed(self):
         self.assertPackageIsInstalled("vim")
 
-    def test_curl_installed(self):
-        self.assertPackageIsInstalled("curl")
+    '''def test_curl_installed(self):
+        self.assertPackageIsInstalled("curl")'''
 
     def test_bzip2_installed(self):
         self.assertPackageIsInstalled("bzip2")
@@ -75,7 +75,7 @@ class Test1and1Image(Test1and1Common):
         self.file_mode_test("/run", "drwxrwxrwx")
 
     def test_apt_lists_empty(self):
-        self.assertEqual("total 0\n", self.execRun("ls -l /var/lib/apt/lists/"))
+        self.assertEqual("total 0\n", self.exec("ls -l /var/lib/apt/lists/"))
 
     def test_docker_logs(self):
         expected_log_lines = [
@@ -83,7 +83,7 @@ class Test1and1Image(Test1and1Common):
             "run-parts: executing /hooks/supervisord-pre.d/20_configurability",
             "run-parts: executing /hooks/supervisord-pre.d/23_prep_cron",
         ]
-        container_logs = self.container.logs().decode('utf-8')
+        container_logs = self.logs()
         for expected_log_line in expected_log_lines:
             self.assertTrue(
                 container_logs.find(expected_log_line) > -1,
