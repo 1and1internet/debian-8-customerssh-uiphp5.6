@@ -37,14 +37,14 @@ RUN \
 		dpkg -i /tmp/php${PHPVER}*.deb && \
 		rm -f /tmp/php${PHPVER}*.deb && \
 		update-alternatives --install /usr/bin/php php /usr/bin/php${PHPVER} 1 && \
-  	echo "COMPOSER" && \
-		mkdir /tmp/composer/ && \
-	    cd /tmp/composer && \
-	    curl -sS https://getcomposer.org/installer | php && \
-	    mv composer.phar /usr/local/bin/composer && \
-	    chmod a+x /usr/local/bin/composer && \
-	    cd / && \
-	    rm -rf /tmp/composer && \
+  	#echo "COMPOSER" && \
+		#mkdir /tmp/composer/ && \
+	  #  cd /tmp/composer && \
+	  #  curl -sS https://getcomposer.org/installer | php && \
+	  #  mv composer.phar /usr/local/bin/composer && \
+	  #  chmod a+x /usr/local/bin/composer && \
+	  #  cd / && \
+	  #  rm -rf /tmp/composer && \
   apt-get autoremove -y && apt-get autoclean -y && \
   mkdir -m 0777 /var/www && \
   chmod 0755 -R /hooks /init && \
